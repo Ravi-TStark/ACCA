@@ -6,9 +6,15 @@ import SignIn from './SignIn';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-Content">
+        <div className="App-Header">
+          ACCA
+        </div>
         <SignIn />
       </header>
+      <footer className="App-Footer">
+        A Common Chat Application. No Fuss, No Muss.
+      </footer>
     </div>
   );
 }

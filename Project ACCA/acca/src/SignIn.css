@@ -3,14 +3,47 @@
 
 }
 
+.signInContainer h5{
+    font-weight: normal;
+}
+.signInContainer .signInContent{
+    padding: 20px;
+}
+
+.signInContainer .signInSubContent{
+    font-size: small;
+    padding: 20px;
+}
+
 .signInContainer button{
     outline: none;
     border: none;
-    background-color: rgb(0, 136, 255);
+    background-color: rgb(0, 89, 255);
     color: white;
-    padding: 15px;
+    padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-radius: 2.5px;
-    box-shadow: 0px 0px 5px rgba(0, 138, 230, 0.5);
+    border-radius: 4px;
+    font-size: small;
+    border: 0px solid rgba(0, 26, 53, 0);
+    transition: box-shadow 0.4s;
+}
+
+.signInContainer button:hover{
+    box-shadow: 0px 0px 10px rgb(0, 26, 56);
+}
+
+.signInContainer button:active{
+    box-shadow: inset 0px 0px 7px rgb(0, 12, 24);
+    border: 0.5px solid rgba(0, 81, 168,0);
+}
+
+.signInContainer button img{
+    float: left;
+    width: 14px;
+    object-fit: scale-down;
+}
+
+.signInContainer button span{
+    padding-left: 20px;
 }
