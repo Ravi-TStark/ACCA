@@ -1,0 +1,27 @@
+.signedInContainer{
+    display: none;
+    z-index: 0;
+    position: relative;
+    flex-direction: column;
+    margin-top: calc(5vh + 30px);
+    width: calc(100% - 70px);
+    margin-top: calc(5vh + 30px);
+    height: calc(100vh - (5vh + 30px));
+    float: right;
+    padding: 10px;
+}
+
+.ChatList { 
+    display: block;
+    float: left;
+    position: relative;
+    width: 50px;
+    margin-top: calc(5vh + 30px);
+    height: calc(100vh - (5vh + 30px));
+    background-color: rgb(22, 22, 22);
+}
+
+.ChatBox { 
+    display: block;
+    height: calc(100vh - (5vh + 30px));
+}
