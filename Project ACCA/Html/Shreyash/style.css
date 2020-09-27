@@ -1,3 +1,9 @@
+.logo1{
+	display: block;
+	margin: auto;
+	width: 200px;
+	height: 200px;
+}
 .buttn{
 
 	display: block;
@@ -13,7 +19,7 @@ footer{
 }
 h2{
 	text-align: center;
-	font-size: 50px;
+	font-size: 80px;
 
 	color: #e7dada;
 }
