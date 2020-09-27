@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2560" height="1600" viewBox="0 0 2560 1600">
   <defs>
-    <radialGradient id="radial-gradient" cx="0.119" cy="0.189" r="0.993" gradientTransform="matrix(0.999, -0.036, 0.056, 1.57, -0.01, -0.103)" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#4b70d5"/>
-      <stop offset="1" stop-color="#001b4e"/>
+    <radialGradient id="radial-gradient" cx="0" cy="0.009" r="1.832" gradientTransform="matrix(0.037, 0.999, -0.635, 0.023, 0.006, 0.009)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#767676"/>
+      <stop offset="1"/>
     </radialGradient>
     <clipPath id="clip-Home">
       <rect width="2560" height="1600"/>
