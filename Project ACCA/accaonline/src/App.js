@@ -4,6 +4,7 @@ import headerLogo from './img/acca2.svg'
 import './App.css';
 import SignIn from './signIn';
 import { auth } from './firebase'
+import { db } from './firebase'
 import LoggedIn from './LoggedIn';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       setUserToken(result.credential.accessToken);
       // The signed-in user info.
       setUser(result.user);
+      //result.user.uid
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -29,6 +31,10 @@ function App() {
     });
   }
 
+  if(!user && loginState){
+    console.log("It is happening")
+  }
+
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authUser) => {
       if(authUser){
@@ -37,14 +43,14 @@ function App() {
         setUser(authUser.currentUser)
         console.log("Logged in as:" + auth.currentUser.displayName);
         document.getElementById('signInPage').style.display = 'none';
-        document.getElementById('signedInPage').style.display='flex';
+        document.getElementById('loggedInContainer').style.display='block';
       }
       else{
         //User logged out
         setLoginState(false)
         setUser(null)
         document.getElementById('signInPage').style.display = 'block';
-        document.getElementById('signedInPage').style.display='none';
+        document.getElementById('loggedInContainer').style.display='none';
       }
     })
     return ()=>{
@@ -59,13 +65,18 @@ function App() {
           <img className="headerImage" src={headerLogo} alt="Logo"/>
           <img className="userImage"/>
         </div>
-        <div className="App_SideBar"> 
-            Hello 
+        <div id="loggedInContainer">
+          <div className="App_SideBar"> 
+              Hello 
+            </div> 
+          <div className="App_ChatList"> 
+              Hello 
           </div> 
-		  <div className="main_Container">
+          <div className="App_ChatBox"> 
+              Hello 
+          </div> 
+        </div>
         <SignIn signInHandler={signIn}/>
-        <LoggedIn />
-          </div>
       </header>
       <footer className="App-Footer">
         A Common Chat Application. No Fuss, No Muss.

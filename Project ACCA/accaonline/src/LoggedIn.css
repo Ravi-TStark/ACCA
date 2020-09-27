@@ -2,7 +2,6 @@
     display: none;
     z-index: 0;
     position: relative;
-    flex-direction: column;
     margin-top: calc(5vh + 30px);
     width: calc(100% - 70px);
     margin-top: calc(5vh + 30px);
