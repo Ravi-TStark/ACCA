@@ -5,11 +5,12 @@ import './App.css';
 import SignIn from './signIn';
 import { auth } from './firebase'
 import { db } from './firebase'
-import LoggedIn from './LoggedIn';
 
 function App() {
   const [userToken, setUserToken] = useState(null)
   const [user, setUser] = useState(null)
+  const [userDisplayname, setUserDisplayname] = useState("")
+  const [email, setemail] = useState("")
   const [loginState, setLoginState] = useState(false)
   const signIn = (event)=>{
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -18,6 +19,7 @@ function App() {
       setUserToken(result.credential.accessToken);
       // The signed-in user info.
       setUser(result.user);
+      
       //result.user.uid
     }).catch(function(error) {
       // Handle Errors here.
@@ -31,8 +33,12 @@ function App() {
     });
   }
 
-  if(!user && loginState){
-    console.log("It is happening")
+  const signOut = (event)=>{
+    auth.signOut().then(()=>{
+
+    }).catch((error)=>{
+      console.log(error.message);
+    });
   }
 
   useEffect(() => {
@@ -42,15 +48,17 @@ function App() {
         setLoginState(true)
         setUser(authUser.currentUser)
         console.log("Logged in as:" + auth.currentUser.displayName);
+        setUserDisplayname(auth.currentUser.displayName);
+        setemail(auth.currentUser.email);
         document.getElementById('signInPage').style.display = 'none';
-        document.getElementById('loggedInContainer').style.display='block';
+        document.getElementById('header').className = 'App-Content-LoggedIn';
       }
       else{
         //User logged out
         setLoginState(false)
         setUser(null)
         document.getElementById('signInPage').style.display = 'block';
-        document.getElementById('loggedInContainer').style.display='none';
+        document.getElementById('header').className = 'App-Content';
       }
     })
     return ()=>{
@@ -59,7 +67,7 @@ function App() {
   }, [user])
 
   return (
-    <div className="App">
+    <div id="header" className="App">
       <header className="App-Content">
         <div className="App-Header">
           <img className="headerImage" src={headerLogo} alt="Logo"/>
@@ -70,7 +78,21 @@ function App() {
               Hello 
             </div> 
           <div className="App_ChatList"> 
-              Hello 
+              <div className="userProfileList">
+                <div className="profileImage">
+                  {userDisplayname.slice(0,1)}
+                </div>
+                <div className="profileContent">
+                <b>{userDisplayname}</b><br></br>
+                  <i>{email}</i>
+                </div>
+                <div className="profileOptions">
+                  <button onClick={signOut}>Logout</button>
+                </div>
+              </div>
+              <div className= "userList">
+
+              </div>
           </div> 
           <div className="App_ChatBox"> 
               Hello 
