@@ -6,15 +6,18 @@ import SignIn from './signIn';
 import UserListItem from './userListItem';
 import { auth } from './firebase'
 import { db } from './firebase'
+import Message from './message';
 
 function App() {
   const [users, setUsers] = useState([])
+  const [peers, setPeers] = useState([])
+  const [messages, setMessages] = useState([])
+  const [currentID, setCurrentID] = useState("")
   const [user, setUser] = useState(null)
   const [userDisplayname, setUserDisplayname] = useState("")
   const [email, setemail] = useState("")
   const [loginState, setLoginState] = useState(false)
-
-  alert(userDisplayname)
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   
   const signIn = (event)=>{
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -23,7 +26,6 @@ function App() {
       // The signed-in user info.
       setUser(result.user);
       setemail(result.user.email);
-      
       //result.user.uid
     }).catch(function(error) {
       /*Handle Errors here.
@@ -41,7 +43,7 @@ function App() {
     auth.signOut().then(()=>{
 
     }).catch((error)=>{
-      console.log(error.message);
+      //console.log(error.message);
     });
   }
 
@@ -51,10 +53,8 @@ function App() {
         //userLogged in
         setLoginState(true)
         setUser(authUser.currentUser)
-        console.log("Logged in as: " + auth.currentUser.displayName);
         setUserDisplayname(auth.currentUser.displayName);
         setemail(auth.currentUser.email);
-        console.log("User Email: " + email)
         document.getElementById('signInPage').style.display = 'none';
         document.getElementById('header').className = 'App-Content-LoggedIn';
       }
@@ -81,15 +81,20 @@ function App() {
     })
     if(email !== ""){
       const usersRef = db.collection('users').doc(email)
+      const peersRef = db.collection('users').doc(email).collection('peers')
 
       usersRef.get()
         .then((docSnapshot) => {
           if (docSnapshot.exists) {
             usersRef.onSnapshot((doc) => {
-              // do stuff with the data
+              peersRef.onSnapshot(snapshot => {
+                setPeers(snapshot.docs.map(docu => ({
+                  id: docu.id,
+                  peer: docu.data()
+                })))
+              })
             });
           } else {
-            console.log("Here")
             usersRef.set({
               id: email,
               DisplayName: userDisplayname,
@@ -101,15 +106,39 @@ function App() {
     
   }, [users, email]);
 
+   const isPeer = (peerID) => {
+    const out = peers.find(peer => peer.id === peerID)
+    return (out? true :false)
+  }
+
   const addPeer = function(peerID){
-    db.collection('users').doc(email).set({
-      peers: [{
+    db.collection('users').doc(email).collection('peers').doc(peerID).set({
         id: peerID,
         displayName: db.collection('users').doc(peerID).DisplayName,
-        messages: []
-      }]
+    })
+    db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').set({
+      
     })
   }
+
+  const openPeer = (peerID) => {
+    if(peers){
+      var out = peers.findIndex(peer => (peer.id === peerID))
+      var obj = peers[out];
+      db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').onSnapshot((snapshot)=>{
+        setMessages(snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data()
+        })))
+      })
+      
+    }  
+  };
+
+  const datesAreOnSameDay = (first, second) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
 
   return (
     <div id="header" className="App">
@@ -137,23 +166,23 @@ function App() {
               </div>
               <div className= "userList">
                 <div className="listOptions">
-                  <button>
+                  <button className="listButtonActive">
                     Chats
                   </button>
-                  <button>
+                  <button className="buttonInactive">
                     Groups
                   </button>
-                  <button>
+                  <button className="buttonInactive">
                     Global
                   </button>
                 </div>
                 <div className="listContainer">
                 {
-                  users.map(({id, user}) => id !== email
+                  users.map(({id, user}) => (id !== email && isPeer(id))
                     ? (
-                    <UserListItem key={id} id={user.id} displayName = {user.DisplayName}/>
+                    <UserListItem key={id} onClick={openPeer} id={user.id} displayName = {user.DisplayName}/>
                     ) : (
-                    <div></div>
+                    ""
                     )
                   )}
                 </div>
@@ -163,7 +192,22 @@ function App() {
               </div>
           </div> 
           <div className="App_ChatBox">
-            
+            <div className="chatHeader">
+                <div className="chatBoxProfileImage">
+                  {userDisplayname.slice(0,1)}
+                </div>
+                <div className="chatBoxProfileContent">
+                    <strong>{userDisplayname}</strong><br></br>
+                    <i id="emailID">{email}</i>
+                </div>
+            </div>
+            <div className="messageContainer">
+              {
+                messages.map(({id, data})=>{
+                  return <Message key={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", Today" : data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", " + data.timeStamp.toDate().getDate().toString() + " " + months[data.timeStamp.toDate().getMonth()]}/>
+                })
+              }
+            </div>
               <div className="chatBoxInput">
                 <input type="text" placeholder="Type your message"/>
               </div>

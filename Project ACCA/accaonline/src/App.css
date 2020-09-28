@@ -44,13 +44,14 @@
   display: block;
   background-color: rgb(20, 20, 20);
   margin-top: 0;
+  border-radius: 10px;
   padding-top: calc(4.5vh + 40px);
   transition: background-color 0.4s;
 }
 
 .App-Content-LoggedIn .App_ChatList{
   display: block;
-  border-radius: 0 15px 15px 0;
+  border-radius: 15px;
   background-color: rgb(27, 27, 27);
   border: 1px solid (27, 27, 27);
   border-left: 1px solid (27, 27, 27);
@@ -102,6 +103,7 @@
   height: calc(100vh);
   font-size: small;
   z-index: 90;
+  overflow: hidden;
 }
 
 .App_ChatBox {
@@ -111,12 +113,13 @@
   width: calc(100vw - 360px);
   height: calc(100vh);
   font-size: small;
-  z-index: 90;
+  z-index: 200;
   background-color: #26262600;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .userProfileList{
-  border-bottom: 1px solid rgb(61, 61, 61);
   border-radius: 0 15px 0 0;
 }
 
@@ -161,7 +164,6 @@
 
 .profileOptions button:active{
   background:  rgb(63, 63, 63);
-
 }
 
 .userProfileList{
@@ -179,12 +181,23 @@
   flex-direction: row;
 }
 
-.listOptions button{
+.listOptions .buttonInactive{
   width: 33.33%;
-  height: 30px;
+  height: 40px;
   border: none;
   background-color: transparent;
   font-weight: bold;
+}
+
+.listButtonActive{
+  width: 33.33%;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+  height: 38px;
+  line-height: 40px;
 }
 
 .listOptions button:hover{
@@ -192,20 +205,20 @@
 }
 
 .listContainer{
-  height: calc(100% - 70px);
+  height: calc(100% - 80px);
   position: relative;
 }
 
 .listSearchBox{
   position: absolute;
-  height: 40px;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 0 0 15px 0;
+  height: 50px;
+  width: calc(100% - 10px);
+  left: 5px;
+  right: 5px;
+  bottom: 10px;
+  border-radius: 25px;
   overflow: hidden;
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(20, 20, 20);
 }
 .listSearchBox input{
   display: block;
@@ -214,7 +227,7 @@
   right: 0;
   bottom: 0;
   width: calc(100%);
-  height: 30px;
+  height: 40px;
   font-size: 12px;
   font-weight: light;
   background-color: transparent;
@@ -229,16 +242,56 @@
   height: 40px;
 }
 
-.chatBoxInput{
+.chatHeader{
   position: absolute;
-  height: 40px;
-  width: 100%;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  border-radius: 0 0 15px 0;
+  height: 60px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.chatBoxProfileImage{
+    float: left;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 50%;
+    font-size: small;
+    background-color: gray;
+    line-height: 30px;
+    font-size: normal;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chatBoxProfileContent{
+  padding-top: 15px;
+  line-height: 125%;
+}
+
+.messageContainer{
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 10px;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  overflow: scroll;
+}
+
+.chatBoxInput{
+  position: absolute;
+  height: 50px;
+  width: calc(100% - 20px);
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 25px;
   overflow: hidden;
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(20, 20, 20);
 }
 
 .chatBoxInput input{
@@ -248,7 +301,7 @@
   right: 0;
   bottom: 0;
   width: calc(100%);
-  height: 30px;
+  height: 40px;
   font-size: 12px;
   font-weight: light;
   background-color: transparent;

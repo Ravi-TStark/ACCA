@@ -1,0 +1,44 @@
+.messageRoot{
+    display: block;
+    min-width: 100%;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.messageBody{
+    display: block;
+    padding: 10px;
+    max-width: 60%;
+    min-width: 0px;
+    min-height: 10px;
+    height: auto;
+    width: auto;
+    background-color: teal;
+    color: white;
+    font-weight: normal;
+    border-radius: 10px 0px 10px 10px;
+    float: right;
+}
+
+.messageBody-recieved{
+    display: block;
+    padding: 10px;
+    max-width: 60%;
+    min-width: 0px;
+    min-height: 10px;
+    height: auto;
+    width: auto;
+    background-color: rgb(100, 100, 100);
+    color: white;
+    font-weight: normal;
+    border-radius: 0px 10px 10px 10px;
+    float: left;
+}
+
+.message-Timestamp{
+    float: right;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: x-small;
+}
