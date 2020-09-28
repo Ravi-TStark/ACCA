@@ -1,0 +1,41 @@
+.user-ListItem{
+    display: block;
+    width: calc(100% - 20px);
+    min-height: 40px;
+    height: 50px;
+    padding: 10px;
+    color: white;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+    cursor: default;
+}
+
+.user-ListItem:hover{
+    background-color: rgba(150,150,150,0.08);
+    transition: background 0.4s;
+}
+
+.user-ListItem .user-ProfileImage{
+    float: left;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border-radius: 50%;
+    font-size: small;
+    background-color: gray;
+    line-height: 30px;
+    font-size: normal;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .user-ListItem button{
+      float: right;
+  }
+
+.user-ListInfo{
+    text-align: left;
+    margin-left: 50px;
+    padding-top: 10px;
+}

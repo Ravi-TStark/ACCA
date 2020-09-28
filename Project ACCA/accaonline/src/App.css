@@ -52,6 +52,8 @@
   display: block;
   border-radius: 0 15px 15px 0;
   background-color: rgb(27, 27, 27);
+  border: 1px solid (27, 27, 27);
+  border-left: 1px solid (27, 27, 27);
 }
 
 .App-Content-LoggedIn .App_ChatBox{
@@ -90,7 +92,6 @@
   height: calc(100vh - (4.5vh + 50px));
   font-size: small;
   z-index: 90;
-  background-color: #26262600;
 }
 
 .App_ChatList {
@@ -101,7 +102,6 @@
   height: calc(100vh);
   font-size: small;
   z-index: 90;
-  background-color: #26262600;
 }
 
 .App_ChatBox {
@@ -109,11 +109,15 @@
   float: left;
   position: relative;
   width: calc(100vw - 360px);
-  padding-bottom: 10px;
   height: calc(100vh);
   font-size: small;
   z-index: 90;
   background-color: #26262600;
+}
+
+.userProfileList{
+  border-bottom: 1px solid rgb(61, 61, 61);
+  border-radius: 0 15px 0 0;
 }
 
 .profileImage{
@@ -140,6 +144,10 @@
 .profileContent i{
   font-size: smaller;
 }
+.profileOptions{
+  display: block;
+  height: 40px;
+}
 
 .profileOptions button{
   padding: 10px;
@@ -160,8 +168,95 @@
   padding: 20px;
 }
 
+.userList{
+  position: relative;
+  height: calc(100% - 150px);
+  border-radius: 0 0 15px 0;
+}
+
+.listOptions{
+  display: flex;
+  flex-direction: row;
+}
+
+.listOptions button{
+  width: 33.33%;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.listOptions button:hover{
+  background-color: rgba(50,50,50,0.25);
+}
+
+.listContainer{
+  height: calc(100% - 70px);
+  position: relative;
+}
+
+.listSearchBox{
+  position: absolute;
+  height: 40px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 0 15px 0;
+  overflow: hidden;
+  background-color: rgb(37, 37, 37);
+}
+.listSearchBox input{
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(100%);
+  height: 30px;
+  font-size: 12px;
+  font-weight: light;
+  background-color: transparent;
+  padding: 5px;
+  padding-left: 15px;
+  line-height: 40px;
+  outline: none;
+  border: none;
+}
+
 .headerImage{
-  height: 4.5vh;
+  height: 40px;
+}
+
+.chatBoxInput{
+  position: absolute;
+  height: 40px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 0 15px 0;
+  overflow: hidden;
+  background-color: rgb(37, 37, 37);
+}
+
+.chatBoxInput input{
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(100%);
+  height: 30px;
+  font-size: 12px;
+  font-weight: light;
+  background-color: transparent;
+  padding: 5px;
+  padding-left: 15px;
+  line-height: 40px;
+  outline: none;
+  border: none;
 }
 
 .App-Footer{
