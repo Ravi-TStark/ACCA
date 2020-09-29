@@ -36,9 +36,23 @@
     float: left;
 }
 
-.message-Timestamp{
+.message-Timestamp-recieved{
     float: right;
     margin-left: 10px;
     margin-top: 10px;
     font-size: x-small;
+    color: gainsboro;
+}
+
+.message-Timestamp{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: x-small;
+    color: gainsboro;
+}
+
+.messageContent{
+    text-align: left;
+    user-select: text;
 }

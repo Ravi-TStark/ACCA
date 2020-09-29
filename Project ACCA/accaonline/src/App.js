@@ -1,5 +1,5 @@
 import React ,{useState , useEffect} from 'react';
-import firebase from "firebase"
+import firebase, { firestore } from "firebase"
 import headerLogo from './img/acca2.svg'
 import './App.css';
 import SignIn from './signIn';
@@ -7,10 +7,12 @@ import UserListItem from './userListItem';
 import { auth } from './firebase'
 import { db } from './firebase'
 import Message from './message';
+import message from './message';
 
 function App() {
   const [users, setUsers] = useState([])
   const [peers, setPeers] = useState([])
+  const [pID, setPID] = useState('')
   const [messages, setMessages] = useState([])
   const [user, setUser] = useState(null)
   const [userDisplayname, setUserDisplayname] = useState("")
@@ -119,6 +121,33 @@ function App() {
     
   }, [users, email]);
 
+  useEffect(() => {
+    if(pID !== ''){
+      db.collection('users').doc(email).collection('peers').doc(pID).collection('messages').onSnapshot((snapshot)=>{
+        setMessages(snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data()
+        })))
+      })
+    }
+  }, [pID])
+
+  const sendMessage = (cont) => {
+    var dtobj = new Date();
+    var tStamp = new firestore.Timestamp(dtobj.getTime() / 1000, (dtobj.getTime % 1000) * 1000000);
+    db.collection('users').doc(email).collection('peers').doc(pID).collection('messages').doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+      recieved: false,
+      content: cont,
+      timeStamp: tStamp
+    })
+
+    db.collection('users').doc(pID).collection('peers').doc(email).collection('messages').doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+      recieved: true,
+      content: cont,
+      timeStamp: tStamp
+    })
+  }
+
    const isPeer = (peerID) => {
     const out = peers.find(peer => peer.id === peerID)
     return (out? true :false)
@@ -130,19 +159,13 @@ function App() {
         displayName: db.collection('users').doc(peerID).DisplayName,
     })
     db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').set({
-      
+        
     })
   }
 
   const openPeer = (peerID) => {
     if(peers){
-      db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').onSnapshot((snapshot)=>{
-        setMessages(snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data()
-        })))
-      })
-      
+      setPID(peerID)
     }  
   };
 
@@ -215,12 +238,19 @@ function App() {
             <div className="messageContainer">
               {
                 messages.map(({id, data})=>{
-                  return <Message key={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", Today" : data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", " + data.timeStamp.toDate().getDate().toString() + " " + months[data.timeStamp.toDate().getMonth()]}/>
+                  return <Message key={id} id={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", Today" : data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", " + data.timeStamp.toDate().getDate().toString() + " " + months[data.timeStamp.toDate().getMonth()]}/>
                 })
               }
             </div>
               <div className="chatBoxInput">
-                <input type="text" placeholder="Type your message"/>
+                    <input id="messageField" type="text" placeholder="Type your message" onKeyDown={async (e)=> {
+                      if(e.keyCode === 13){
+                        sendMessage(document.getElementById('messageField').value)
+                      }
+                    }}/>
+                    <button className="sendMessageBtn" onClick={async e=>{
+                      sendMessage(document.getElementById('messageField').value)
+                    }}><img className="sendMessageImage" alt="S"/></button>
               </div>
           </div> 
         </div>
