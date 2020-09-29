@@ -13,11 +13,13 @@ function App() {
   const [peers, setPeers] = useState([])
   const [messages, setMessages] = useState([])
   const [pID, setPID] = useState('')
+  const [pName, setPName] = useState('')
   const [user, setUser] = useState(null)
   const [userDisplayname, setUserDisplayname] = useState("")
   const [email, setemail] = useState("")
   const [loginState, setLoginState] = useState(false)
   const [loadingAuth, setLoadingAuth] = useState(true)
+  const [scrolledtolast, setscrolledtolast] = useState(true)
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   
   const signIn = (event)=>{
@@ -69,6 +71,7 @@ function App() {
         setemail("")
         document.getElementById('signInContainer').style.display = 'block';
         document.getElementById('header').className = 'App-Content';
+
       }
       setLoadingAuth(false)
     })
@@ -108,6 +111,8 @@ function App() {
                 })))
               })
             });
+            document.getElementsByClassName('listContainer_Loading')[0].style.display = 'none';
+            document.getElementsByClassName('listContainer')[0].style.display = 'block';
           } else {
             usersRef.set({
               id: email,
@@ -120,31 +125,34 @@ function App() {
     
   }, [users, email]);
 
-  const sendMessage = (cont) => {
+  const sendMessage = async (cont) => {
     if(pID !== ''){
       var dtobj = new Date();
       var tStamp = new firestore.Timestamp(dtobj.getTime() / 1000, 0);
       const messageDB = db.collection('users').doc(email).collection('peers').doc(pID).collection('messages');
       const messageDB1 = db.collection('users').doc(pID).collection('peers').doc(email).collection('messages');
   
-      messageDB.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+      await messageDB.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
         recieved: false,
         content: cont,
         timeStamp: tStamp
       })
+
+      updateMessagesScroll();
   
-      messageDB1.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+      await messageDB1.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
         recieved: true,
         content: cont,
         timeStamp: tStamp
       })
   
-      db.collection('users').doc(email).collection('peers').doc(pID).collection('messages').onSnapshot((snapshot)=>{
+      await db.collection('users').doc(email).collection('peers').doc(pID).collection('messages').onSnapshot((snapshot)=>{
         setMessages(snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data()
         })))
       })
+
     }
     
   }
@@ -164,18 +172,38 @@ function App() {
     })
   }
 
-  const openPeer = (peerID) => {
+  const openPeer = (peerID, peerName) => {
     if(peers){
       setPID(peerID)
+      setPName(peerName)
+      document.getElementsByClassName('App_ChatBox_Def')[0].style.display='none';
+      document.getElementsByClassName('App_ChatBox_Loading')[0].style.display='block';
       db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').onSnapshot((snapshot)=>{
         setMessages(snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data()
         })))
+        document.getElementsByClassName('App_ChatBox_Loading')[0].style.display='none';
+        document.getElementsByClassName('App_ChatBox')[0].style.display='block';
+        updateMessagesScroll();
       })
-      
     }  
   };
+
+  const checkScrollHeight = ()=>{
+    var ele = document.getElementById('messageOverflowContainer');
+    return(ele.scrollTop === ele.scrollHeight)
+  }
+
+  const updateMessagesScroll = ()=>
+  {
+    var out = document.getElementById('messageOverflowContainer').children
+    out[out.length-1].scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest"
+    });
+  }
 
   const datesAreOnSameDay = (first, second) =>
     first.getFullYear() === second.getFullYear() &&
@@ -189,22 +217,23 @@ function App() {
           <img className="headerImage" src={headerLogo} alt="Logo"/>
           <img className="userImage"/>
         </div>
-        <div id="loggedInContainer">
-          <div className="App_SideBar"> 
-              Hello 
-            </div> 
-          <div className="App_ChatList"> 
-              <div className="userProfileList">
-                <div className="profileImage">
-                  {userDisplayname.slice(0,1)}
-                </div>
-                <div className="profileContent">
-                <b>{userDisplayname}</b><br></br>
-                  <i>{email}</i>
-                </div>
-                <div className="profileOptions">
-                  <button onClick={signOut}>Logout</button>
-                </div>
+        <div className="mainPage">
+          <div id="loggedInContainer">
+              <div className="App_SideBar"> 
+                Hello 
+              </div> 
+              <div className="App_ChatList"> 
+                  <div className="userProfileList">
+                      <div className="profileImage">
+                          {userDisplayname.slice(0,1)}
+                      </div>
+                  <div className="profileContent">
+                      <b>{userDisplayname}</b><br></br>
+                      <i>{email}</i>
+                  </div>
+                  <div className="profileOptions">
+                      <button onClick={signOut}>Logout</button>
+                  </div>
               </div>
               <div className= "userList">
                 <div className="listOptions">
@@ -222,38 +251,52 @@ function App() {
                 {
                   users.map(({id, user}) => (id !== email && isPeer(id))
                     ? (
-                    <UserListItem key={id} onClick={openPeer} id={user.id} displayName = {user.DisplayName}/>
+                    <UserListItem key={id} onClick={openPeer} id={user.id} displayName = {user.DisplayName} isUserPeer={true}/>
                     ) : (
                     ""
                     )
                   )}
                 </div>
+                <div className="listContainer_Loading">
+                    <div className="loadingBG">
+                        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                </div>
                 <div className="listSearchBox">
                   <input type="text" placeholder="Search for chats or groups."/>
                 </div>
               </div>
-          </div> 
-          <div className="App_ChatBox">
-            <div className="chatHeader">
+            </div> 
+            <div className="App_ChatBox_Def">
+              <div className="App_ChatBox_Def_Text">
+                  Click on Any User and Start Chatting!
+              </div>
+            </div>
+            <div className="App_ChatBox_Loading">
+              <div className="loadingBG">
+                  <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+              </div>
+            </div>
+            <div className="App_ChatBox">
+              <div className="chatHeader">
                 <div className="chatBoxProfileImage">
-                  {userDisplayname.slice(0,1)}
+                  {pName.slice(0,1)}
                 </div>
                 <div className="chatBoxProfileContent">
-                    <strong>{userDisplayname}</strong><br></br>
-                    <i id="emailID">{email}</i>
+                    <strong>{pName}</strong><br></br>
+                    <i>{pID}</i>
                 </div>
             </div>
-            <div className="messageOverflowContainer">
+            <div className="messageOverflowContainer" id='messageOverflowContainer'>
               <div className="messageContainer">
               {
                 messages.map(({id, data})=>{
-                  return <Message key={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", Today" : data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", " + data.timeStamp.toDate().getDate().toString() + " " + months[data.timeStamp.toDate().getMonth()]}/>
+                  return <Message key={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + data.timeStamp.toDate().getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ", Today" : data.timeStamp.toDate().getHours().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + data.timeStamp.toDate().getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ", " + data.timeStamp.toDate().getDate().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " " + months[data.timeStamp.toDate().getMonth()]}/>;
                 })
               }
               </div>
             </div>
-            
-              <div className="chatBoxInput">
+            <div className="chatBoxInput">
                 <input id="chatBoxInputText" type="text" placeholder="Type your message"/>
                 <button className="chatBoxInputSendBtn" onClick={
                   (e)=>{
@@ -263,18 +306,19 @@ function App() {
                   }
                 }>S</button>
               </div>
-          </div> 
-        </div>
-        <div id="signInContainer">
+            </div> 
+          </div>
+          <div id="signInContainer">
               <SignIn signInHandler={signIn}/>
               <footer className="App-Footer">
                   A Common Chat Application. No Fuss, No Muss.
               </footer>
-        </div>
-        <div id="signingInContainer">
-              <div className="signingInBG">
-                  <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-              </div>
+          </div>
+          <div id="signingInContainer">
+                <div className="signingInBG">
+                    <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+          </div>
         </div>
       </header>
     </div>

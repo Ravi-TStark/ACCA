@@ -46,7 +46,7 @@
   display: block;
   background-color: rgb(20, 20, 20);
   margin-top: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   padding-top: calc(4.5vh + 40px);
   transition: background-color 0.4s;
 }
@@ -55,16 +55,55 @@
   transition: opacity 0.2s;
   opacity: 1;
   display: block;
-  border-radius: 15px;
+  border-radius: 5px;
   background-color: rgb(27, 27, 27);
   border: 1px solid (27, 27, 27);
   border-left: 1px solid (27, 27, 27);
 }
 
+.App_ChatBox_Def{
+  display: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.App_ChatBox_Loading{
+  display: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.App-Content-LoggedIn .App_ChatBox_Def{
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+
+.App-Content-LoggedIn .App_ChatBox_Def_Text{
+  vertical-align: middle;
+  font-weight: normal;
+  color: gray;
+  font-style: italic;
+  height: 300px;
+  padding-top: 50vh;
+}
+
+.App-Content-LoggedIn .App_ChatBox_Loading{
+  display: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.App-Content-LoggedIn .loadingBG{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .App-Content-LoggedIn .App_ChatBox{
   transition: opacity 0.2s;
   opacity: 1;
-  display: block;
+  display: none;
 }
 
 .App-Header{
@@ -81,7 +120,6 @@
   left: 0;
   right: 0;
   text-shadow: 3px 3px 2.5px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.5);
 }
 
 #loggedInContainer{
@@ -129,7 +167,8 @@
 }
 
 .userProfileList{
-  border-radius: 0 15px 0 0;
+  border-radius: 5px;
+  background-color: rgb(15, 15, 15);
 }
 
 .profileImage{
@@ -213,7 +252,14 @@
   background-color: rgba(50,50,50,0.25);
 }
 
+.App-Content-LoggedIn .listContainer_Loading{
+  display: block;
+  height: calc(100% - 80px);
+  position: relative;
+}
+
 .listContainer{
+  display: none;
   height: calc(100% - 80px);
   position: relative;
 }
@@ -226,7 +272,7 @@
   left: 5px;
   right: 5px;
   bottom: 10px;
-  border-radius: 25px;
+  border-radius: 10px;
   overflow: hidden;
   background-color: rgb(20, 20, 20);
 }
@@ -310,7 +356,7 @@
   left: 10px;
   right: 10px;
   bottom: 10px;
-  border-radius: 25px;
+  border-radius: 10px;
   overflow: hidden;
   background-color: rgb(20, 20, 20);
 }
@@ -337,7 +383,7 @@
   float: right;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 5px;
   background: none;
   outline: none;
   border: none;
