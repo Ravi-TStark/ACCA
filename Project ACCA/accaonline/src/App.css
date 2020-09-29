@@ -9,6 +9,7 @@
 
 .App {
   text-align: center;
+  background: rgb(39, 39, 39);
 }
 
 .App-Content {
@@ -28,7 +29,6 @@
 
 .App-Content-LoggedIn .App-Content{
   background: rgb(39, 39, 39);
-  transition: background 0.4s;
   text-align: center;
 }
 
@@ -41,6 +41,8 @@
 }
 
 .App-Content-LoggedIn .App_SideBar{
+  transition: opacity 0.2s;
+  opacity: 1;
   display: block;
   background-color: rgb(20, 20, 20);
   margin-top: 0;
@@ -50,6 +52,8 @@
 }
 
 .App-Content-LoggedIn .App_ChatList{
+  transition: opacity 0.2s;
+  opacity: 1;
   display: block;
   border-radius: 15px;
   background-color: rgb(27, 27, 27);
@@ -58,6 +62,8 @@
 }
 
 .App-Content-LoggedIn .App_ChatBox{
+  transition: opacity 0.2s;
+  opacity: 1;
   display: block;
 }
 
@@ -70,7 +76,7 @@
   text-align: left;
   padding: 15px;
   padding-left: 30px;
-  height: 4.5vh;
+  height: 60px;
   top: 0;
   left: 0;
   right: 0;
@@ -93,6 +99,7 @@
   height: calc(100vh - (4.5vh + 50px));
   font-size: small;
   z-index: 90;
+  opacity: 0;
 }
 
 .App_ChatList {
@@ -104,6 +111,7 @@
   font-size: small;
   z-index: 90;
   overflow: hidden;
+  opacity: 0;
 }
 
 .App_ChatBox {
@@ -117,6 +125,7 @@
   background-color: #26262600;
   border-radius: 15px;
   overflow: hidden;
+  opacity: 0;
 }
 
 .userProfileList{
@@ -311,6 +320,78 @@
   outline: none;
   border: none;
 }
+
+.signingInBG{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 250;
+  background-color: rgb(26, 26, 26);
+  align-items: center;
+  text-align: center;
+  transition: display 0.4s;
+  display: block;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  top: calc(50% - 40px);
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
 
 .App-Footer{
   height: 6vh;

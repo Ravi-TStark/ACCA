@@ -12,11 +12,11 @@ function App() {
   const [users, setUsers] = useState([])
   const [peers, setPeers] = useState([])
   const [messages, setMessages] = useState([])
-  const [currentID, setCurrentID] = useState("")
   const [user, setUser] = useState(null)
   const [userDisplayname, setUserDisplayname] = useState("")
   const [email, setemail] = useState("")
   const [loginState, setLoginState] = useState(false)
+  const [loadingAuth, setLoadingAuth] = useState(true)
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   
   const signIn = (event)=>{
@@ -26,6 +26,7 @@ function App() {
       // The signed-in user info.
       setUser(result.user);
       setemail(result.user.email);
+      setLoginState(true)
       //result.user.uid
     }).catch(function(error) {
       /*Handle Errors here.
@@ -41,7 +42,7 @@ function App() {
 
   const signOut = (event)=>{
     auth.signOut().then(()=>{
-
+      setLoginState(false)
     }).catch((error)=>{
       //console.log(error.message);
     });
@@ -49,13 +50,15 @@ function App() {
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authUser) => {
+      document.getElementById('signInContainer').style.display = 'none';
+      document.getElementById('header').className = 'App-Content';
       if(authUser){
         //userLogged in
         setLoginState(true)
-        setUser(authUser.currentUser)
+        setUser(authUser)
         setUserDisplayname(auth.currentUser.displayName);
         setemail(auth.currentUser.email);
-        document.getElementById('signInPage').style.display = 'none';
+        document.getElementById('signInContainer').style.display = 'none';
         document.getElementById('header').className = 'App-Content-LoggedIn';
       }
       else{
@@ -63,14 +66,24 @@ function App() {
         setLoginState(false)
         setUser(null)
         setemail("")
-        document.getElementById('signInPage').style.display = 'block';
+        document.getElementById('signInContainer').style.display = 'block';
         document.getElementById('header').className = 'App-Content';
       }
+      setLoadingAuth(false)
     })
     return ()=>{
       unsub();
     }
-  }, [user])
+  }, [])
+
+  useEffect(() => {
+    if(loadingAuth){
+        document.getElementById('signingInContainer').style.display = 'block'
+    }
+    else{
+      document.getElementById('signingInContainer').style.display = 'none'
+    }
+  }, [loadingAuth])
 
   useEffect(()=>{
     db.collection('users').onSnapshot(snapshot => {
@@ -123,8 +136,6 @@ function App() {
 
   const openPeer = (peerID) => {
     if(peers){
-      var out = peers.findIndex(peer => (peer.id === peerID))
-      var obj = peers[out];
       db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').onSnapshot((snapshot)=>{
         setMessages(snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -213,11 +224,18 @@ function App() {
               </div>
           </div> 
         </div>
-        <SignIn signInHandler={signIn}/>
+        <div id="signInContainer">
+              <SignIn signInHandler={signIn}/>
+              <footer className="App-Footer">
+                  A Common Chat Application. No Fuss, No Muss.
+              </footer>
+        </div>
+        <div id="signingInContainer">
+              <div className="signingInBG">
+                  <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+              </div>
+        </div>
       </header>
-      <footer className="App-Footer">
-        A Common Chat Application. No Fuss, No Muss.
-      </footer>
     </div>
   );
 }
