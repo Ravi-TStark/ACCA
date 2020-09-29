@@ -1,5 +1,5 @@
 import React ,{useState , useEffect} from 'react';
-import firebase from "firebase"
+import firebase, { firestore } from "firebase"
 import headerLogo from './img/acca2.svg'
 import './App.css';
 import SignIn from './signIn';
@@ -12,6 +12,7 @@ function App() {
   const [users, setUsers] = useState([])
   const [peers, setPeers] = useState([])
   const [messages, setMessages] = useState([])
+  const [pID, setPID] = useState('')
   const [user, setUser] = useState(null)
   const [userDisplayname, setUserDisplayname] = useState("")
   const [email, setemail] = useState("")
@@ -119,7 +120,36 @@ function App() {
     
   }, [users, email]);
 
-  const isPeer = (peerID) => {
+  const sendMessage = (cont) => {
+    if(pID !== ''){
+      var dtobj = new Date();
+      var tStamp = new firestore.Timestamp(dtobj.getTime() / 1000, 0);
+      const messageDB = db.collection('users').doc(email).collection('peers').doc(pID).collection('messages');
+      const messageDB1 = db.collection('users').doc(pID).collection('peers').doc(email).collection('messages');
+  
+      messageDB.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+        recieved: false,
+        content: cont,
+        timeStamp: tStamp
+      })
+  
+      messageDB1.doc(dtobj.getTime().toString() + (Math.random()*10).toString()).set({
+        recieved: true,
+        content: cont,
+        timeStamp: tStamp
+      })
+  
+      db.collection('users').doc(email).collection('peers').doc(pID).collection('messages').onSnapshot((snapshot)=>{
+        setMessages(snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data()
+        })))
+      })
+    }
+    
+  }
+
+   const isPeer = (peerID) => {
     const out = peers.find(peer => peer.id === peerID)
     return (out? true :false)
   }
@@ -136,6 +166,7 @@ function App() {
 
   const openPeer = (peerID) => {
     if(peers){
+      setPID(peerID)
       db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').onSnapshot((snapshot)=>{
         setMessages(snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -212,15 +243,25 @@ function App() {
                     <i id="emailID">{email}</i>
                 </div>
             </div>
-            <div className="messageContainer">
+            <div className="messageOverflowContainer">
+              <div className="messageContainer">
               {
                 messages.map(({id, data})=>{
                   return <Message key={id} recieved={data.recieved} content={data.content} timeStamp={datesAreOnSameDay(data.timeStamp.toDate(), new Date())? data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", Today" : data.timeStamp.toDate().getHours().toString() + ":" + data.timeStamp.toDate().getMinutes().toString() + ", " + data.timeStamp.toDate().getDate().toString() + " " + months[data.timeStamp.toDate().getMonth()]}/>
                 })
               }
+              </div>
             </div>
+            
               <div className="chatBoxInput">
-                <input type="text" placeholder="Type your message"/>
+                <input id="chatBoxInputText" type="text" placeholder="Type your message"/>
+                <button className="chatBoxInputSendBtn" onClick={
+                  (e)=>{
+                    if(document.getElementById('chatBoxInputText').value.toString().trim() !== '')
+                        sendMessage(document.getElementById('chatBoxInputText').value)
+                    document.getElementById('chatBoxInputText').value = ''
+                  }
+                }>S</button>
               </div>
           </div> 
         </div>

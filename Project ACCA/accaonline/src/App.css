@@ -219,6 +219,7 @@
 }
 
 .listSearchBox{
+  display: none;
   position: absolute;
   height: 50px;
   width: calc(100% - 10px);
@@ -284,11 +285,22 @@
 
 .messageContainer{
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  padding: 0px;
+  pointer-events: all;
+}
+
+.messageOverflowContainer{
+  display: block;
+  height: calc(100vh - 150px);
   padding: 10px;
-  margin-top: 60px;
-  margin-bottom: 50px;
-  overflow: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 70px;
+  margin-bottom: 80px;
+  overflow: hidden;
+  overflow-y: scroll;
+  pointer-events: all;
 }
 
 .chatBoxInput{
@@ -306,19 +318,39 @@
 .chatBoxInput input{
   display: block;
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50px;
+  right: 50px;
   bottom: 0;
-  width: calc(100%);
+  width: calc(100% - 100px);
   height: 40px;
   font-size: 12px;
   font-weight: light;
   background-color: transparent;
   padding: 5px;
-  padding-left: 15px;
   line-height: 40px;
   outline: none;
   border: none;
+}
+
+.chatBoxInputSendBtn{
+  display: block;
+  float: right;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: none;
+  outline: none;
+  border: none;
+  transition: background 0.3s;
+
+}
+
+.chatBoxInputSendBtn:hover{
+  background-color: rgba(220, 220, 220, 0.5);
+}
+
+.chatBoxInputSendBtn:active{
+  background-color: rgba(128, 128, 128, 0.5);
 }
 
 .signingInBG{

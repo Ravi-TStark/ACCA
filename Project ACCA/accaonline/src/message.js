@@ -5,11 +5,14 @@ function message(props) {
     return (
         <div className="messageRoot">
             <div id="msgBody" className={props.recieved? "messageBody-recieved": "messageBody"}>
-                {props.content}
-            <div className="message-Timestamp">
+                <div className="message-Content">
+                    {props.content}
+                </div>
+        </div>
+
+        <div className={props.recieved? "message-Timestamp-recieved": "message-Timestamp"}>
                 {props.timeStamp}
             </div>
-        </div>
         </div>
     )
 }

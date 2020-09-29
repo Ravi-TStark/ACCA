@@ -1,3 +1,8 @@
+.messageRoot *{
+    margin: 0;
+    padding: 0;
+}
+
 .messageRoot{
     display: block;
     min-width: 100%;
@@ -36,9 +41,25 @@
     float: left;
 }
 
+.message-Content{
+    text-align: justify;
+    user-select: text;
+    padding: 0px;
+    margin: 0px;
+    overflow-wrap: break-word;
+    max-width: calc(100%);
+}
+
 .message-Timestamp{
-    float: right;
+    float: left;
     margin-left: 10px;
+    margin-top: 10px;
+    font-size: x-small;
+}
+
+.message-Timestamp-recieved{
+    float: right;
+    margin-right: 10px;
     margin-top: 10px;
     font-size: x-small;
 }
