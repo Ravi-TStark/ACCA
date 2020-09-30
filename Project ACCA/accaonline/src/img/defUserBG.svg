@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1128" height="1128" viewBox="0 0 1128 1128">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0" cy="0" r="1.416" gradientTransform="matrix(0.745, 0.667, -0.301, 0.336, 0, 0)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff9a9a"/>
+      <stop offset="1" stop-color="#845252"/>
+    </radialGradient>
+    <filter id="Path_4" x="-2.5" y="-2.5" width="638.673" height="638.267" filterUnits="userSpaceOnUse">
+      <feOffset dx="15" dy="15" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_5" x="534.996" y="534.998" width="624.003" height="624.002" filterUnits="userSpaceOnUse">
+      <feOffset dx="15" dy="15" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur-2"/>
+      <feFlood flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_2" x="75" y="792" width="60" height="353" filterUnits="userSpaceOnUse">
+      <feOffset dx="10" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_3" x="209" y="860" width="60" height="353" filterUnits="userSpaceOnUse">
+      <feOffset dx="10" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-4"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_4" x="344" y="924" width="60" height="353" filterUnits="userSpaceOnUse">
+      <feOffset dx="10" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-5"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_2-2" x="787.156" y="48.877" width="352.219" height="59.154" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-6"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-6"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_3-2" x="855.746" y="183.563" width="352.219" height="59.154" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-7"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-7"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Union_4-2" x="919.348" y="318.249" width="352.219" height="59.154" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-8"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-8"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Artboard_3">
+      <rect width="1128" height="1128"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_3" data-name="Artboard – 3" clip-path="url(#clip-Artboard_3)">
+    <rect width="1128" height="1128" fill="url(#radial-gradient)"/>
+    <g id="Group_7" data-name="Group 7" transform="translate(0.5 0.5)">
+      <g transform="matrix(1, 0, 0, 1, -0.5, -0.5)" filter="url(#Path_4)">
+        <path id="Path_4-2" data-name="Path 4" d="M525.231-1185.428c0-.209,0-.416,0-.624h0a38.71,38.71,0,0,1,38.717-38.071,38.707,38.707,0,0,1,38.721,38.694,38.708,38.708,0,0,1-38.721,38.7A38.709,38.709,0,0,1,525.231-1185.428ZM0-1749l375.461,562.948Z" transform="translate(0.5 1749.5)" fill="rgba(0,0,0,0)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, -0.5, -0.5)" filter="url(#Path_5)">
+        <path id="Path_5-2" data-name="Path 5" d="M535.736,561.869q0-.312.007-.622h0a26.136,26.136,0,1,1-.007.622ZM0,0,374.074,561.247Z" transform="translate(1126 1126) rotate(180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+    </g>
+    <g id="Group_9" data-name="Group 9" transform="translate(74.702 791.779)">
+      <g transform="matrix(1, 0, 0, 1, -74.7, -791.78)" filter="url(#Union_2)">
+        <path id="Union_2-3" data-name="Union 2" d="M15.375,334V40.021A20.316,20.316,0,0,1,20.5,0a20.319,20.319,0,0,1,4.1,40.255V334Z" transform="translate(75 792)" fill="#fff"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, -74.7, -791.78)" filter="url(#Union_3)">
+        <path id="Union_3-3" data-name="Union 3" d="M15.375,334V40.021A20.316,20.316,0,0,1,20.5,0a20.319,20.319,0,0,1,4.1,40.255V334Z" transform="translate(209 860)" fill="#fff"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, -74.7, -791.78)" filter="url(#Union_4)">
+        <path id="Union_4-3" data-name="Union 4" d="M15.375,334V40.021A20.316,20.316,0,0,1,20.5,0a20.319,20.319,0,0,1,4.1,40.255V334Z" transform="translate(344 924)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_10" data-name="Group 10" transform="translate(791.156 363.403) rotate(-90)">
+      <g transform="matrix(0, 1, -1, 0, 363.4, -791.16)" filter="url(#Union_2-2)">
+        <path id="Union_2-4" data-name="Union 2" d="M15.433,0V294.172a20.323,20.323,0,0,0,5.144,40.048,20.327,20.327,0,0,0,4.116-40.281V0Z" transform="translate(1125.38 52.88) rotate(90)" fill="#fff"/>
+      </g>
+      <g transform="matrix(0, 1, -1, 0, 363.4, -791.16)" filter="url(#Union_3-2)">
+        <path id="Union_3-4" data-name="Union 3" d="M15.433,0V294.172a20.323,20.323,0,0,0,5.144,40.048,20.327,20.327,0,0,0,4.116-40.281V0Z" transform="translate(1193.97 187.56) rotate(90)" fill="#fff"/>
+      </g>
+      <g transform="matrix(0, 1, -1, 0, 363.4, -791.16)" filter="url(#Union_4-2)">
+        <path id="Union_4-4" data-name="Union 4" d="M15.433,0V294.172a20.323,20.323,0,0,0,5.144,40.048,20.327,20.327,0,0,0,4.116-40.281V0Z" transform="translate(1257.57 322.25) rotate(90)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

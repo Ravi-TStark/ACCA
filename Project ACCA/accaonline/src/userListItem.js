@@ -3,7 +3,7 @@ import './userListItem.css'
 
 function userListItem(props) {
     return (
-        <div className="user-ListItem" onClick={(e) => {props.onClick(props.id, props.displayName)}}>
+        <div id={'userListItem'+props.id} className="user-ListItem" onClick={(e) => {props.onClick(props.id, props.displayName, this)}}>
             <div className="user-ProfileImage">
                 {props.displayName.slice(0,1)}
             </div>

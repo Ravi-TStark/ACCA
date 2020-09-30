@@ -166,6 +166,36 @@
   opacity: 0;
 }
 
+.sideButtonActive{
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-left: 3px solid coral;
+    outline: none;
+    background: none;
+    font-size: 10px;
+    transition: background 0.4s;
+}
+
+.sideButtonInactive{
+  width: 60px;
+  height: 60px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 10px;
+  transition: background 0.4s;
+}
+
+.App-Page-List button img{
+    width: 22px;
+    padding: 19px;
+}
+
+.App-Page-List button:hover{
+  background: rgba(128, 128, 128, 0.3);
+}
+
 .userProfileList{
   border-radius: 5px;
   background-color: rgb(15, 15, 15);
@@ -174,15 +204,17 @@
 .profileImage{
   float: left;
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   margin: auto;
   border-radius: 50%;
+  border: 2px solid white;
   font-size: small;
   background-color: gray;
-  line-height: 50px;
+  line-height: 46px;
   font-size: large;
   font-weight: bold;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.25);
 }
 
 .profileContent{
@@ -207,15 +239,27 @@
   outline: none;
   border: none;
   border-radius: 2.5px;
-  background: rgb(56, 56, 56);
+  background: rgba(56, 56, 56, 0.8);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.25);
+  transition: background 0.2s;
+}
+
+.profileOptions button:hover{
+  background: rgba(56, 56, 56, 0.5);
 }
 
 .profileOptions button:active{
-  background:  rgb(63, 63, 63);
+  background:  rgba(63, 63, 63, 0.6);
 }
 
 .userProfileList{
   padding: 20px;
+  background: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.15)), url('./img/defUserBG.svg');
+  background-size: cover;
+  background-position: center;
+  text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
 
 .userList{
@@ -230,15 +274,16 @@
 }
 
 .listOptions .buttonInactive{
-  width: 33.33%;
+  width: 50%;
   height: 40px;
   border: none;
   background-color: transparent;
   font-weight: bold;
+  color: dimgray;
 }
 
 .listButtonActive{
-  width: 33.33%;
+  width: 50%;
   height: 40px;
   border: none;
   background-color: transparent;
@@ -248,7 +293,7 @@
   line-height: 40px;
 }
 
-.listOptions button:hover{
+.listOptions .listButtonActive:hover{
   background-color: rgba(50,50,50,0.25);
 }
 
@@ -304,7 +349,7 @@
   left: 0;
   right: 0;
   height: 60px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .chatBoxProfileImage{
@@ -329,21 +374,28 @@
   line-height: 125%;
 }
 
+.chatBoxProfileContent i{
+  color: dimgray;
+  font-size: smaller;
+}
+
 .messageContainer{
   display: flex;
   flex-direction: column;
   padding: 0px;
   pointer-events: all;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .messageOverflowContainer{
   display: block;
-  height: calc(100vh - 150px);
-  padding: 10px;
+  height: calc(100vh - 120px);
+  padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 70px;
-  margin-bottom: 80px;
+  margin-top: 60px;
+  margin-bottom: 60px;
   overflow: hidden;
   overflow-y: scroll;
   pointer-events: all;
@@ -392,11 +444,18 @@
 }
 
 .chatBoxInputSendBtn:hover{
-  background-color: rgba(220, 220, 220, 0.5);
+  background-color: rgba(220, 220, 220, 0.2);
 }
 
 .chatBoxInputSendBtn:active{
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.chatBoxInputSendBtn img{
+  width: 20px;
+  height: 20px;
+  padding: 15px;
+  object-fit: contain;
 }
 
 .signingInBG{
