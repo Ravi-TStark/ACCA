@@ -539,27 +539,97 @@
   z-index: 250;
 }
 
-.searchBarGlobal input{
+.searchBarGlobal{
+  display: inline-block;
   background-color: rgb(17, 17, 17);
+  height: 40px;
+  width: auto;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+.searchBarGlobal input{
+  display: inline-block;
+  background-color: transparent;
+  height: 40px;
+  border: none;
+  outline: none;
+  margin-left: 50px;
+  margin-right: 10px;
+  font-size: small;
+  min-width: calc(100% - 100px);
+  width: 350px;
+  transition: all 0.3s ease-in-out;
+  vertical-align: middle;
+}
+
+.searchBarGlobal input:not(:placeholder-shown){
+  width: calc(100vw - 200px);
+}
+
+.searchBarGlobal button{
+  width: 40px;
   height: 40px;
   border-radius: 5px;
   border: none;
   outline: none;
-  padding: 5px;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin-top: 40px;
-  min-width: 500px;
-  font-size: small;
+  background-color: transparent;
+  vertical-align: middle;
   transition: all 0.3s;
 }
 
-.searchBarGlobal input:not(:placeholder-shown){
-  margin-top: 0;
-  margin-bottom: 40px;
-  width: 100%;
+.searchBarGlobal button img{
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
 }
 
+.searchBarGlobal .searchButton{
+  float: right;
+}
+
+.searchContainerGlobal{
+    height: calc(100vh - 110px);
+    padding: 10px;
+}
+
+.searchHints{
+  display: block;
+  width: 360px;
+  height: 360px;
+  margin-top: 50% - 180px;
+}
+
+.searchHints .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px 4px;
+  height: 25vh;
+  width: 25vh;
+  grid-template-areas:
+    "gridCell00 gridCell01 gridCell02"
+    "gridCell10 gridCell11 gridCell12";
+}
+.searchHints .gridCell00 { grid-area: gridCell00; }
+.searchHints .gridCell01 { grid-area: gridCell01; }
+.searchHints .gridCell02 { grid-area: gridCell02; }
+.searchHints .gridCell10 { grid-area: gridCell10; }
+.searchHints .gridCell11 { grid-area: gridCell11; }
+.searchHints .gridCell12 { grid-area: gridCell12; }
+
+.grid-container div{
+  display: block;
+  height: calc(20vh);
+  width: calc(20vh);
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  border-radius: 10px;
+  font-size: medium;
+}
 
 .App-Footer{
   height: 6vh;

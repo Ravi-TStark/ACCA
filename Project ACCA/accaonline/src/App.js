@@ -189,10 +189,10 @@ function App() {
         document.getElementsByClassName('App_ChatBox')[0].style.display = 'block';
         updateMessagesScroll();
         const lst = document.getElementsByClassName('user-ListItem')
-        for (var i = 0; i < lst.length; i++) { 
+        for (var i = 0; i < lst.length; i++) {
           lst[i].className = 'user-ListItem';
         }
-        document.getElementById('userListItem'+ peerID).className = 'user-ListItem-Active'
+        document.getElementById('userListItem' + peerID).className = 'user-ListItem-Active'
       })
     }
   };
@@ -206,12 +206,12 @@ function App() {
     });
   }
 
-  const openMainPage = ()=>{
+  const openMainPage = () => {
     document.getElementsByClassName('globalPage')[0].style.display = 'none';
     document.getElementsByClassName('mainPage')[0].style.display = 'block';
   }
 
-  const openGlobalPage = ()=>{
+  const openGlobalPage = () => {
     document.getElementsByClassName('mainPage')[0].style.display = 'none';
     document.getElementsByClassName('globalPage')[0].style.display = 'block';
   }
@@ -231,10 +231,10 @@ function App() {
           <div className="App_SideBar">
             <div className="App-Page-List">
               <button className="sideButtonActive" onClick={openMainPage}>
-                <img src={homeIcon} alt = "Home"/>
+                <img src={homeIcon} alt="Home" />
               </button>
               <button className="sideButtonInactive" onClick={openGlobalPage}>
-                <img src={searchIcon} alt = "Global"/>
+                <img src={searchIcon} alt="Global" />
               </button>
             </div>
           </div>
@@ -324,7 +324,35 @@ function App() {
           </div>
           <div className="globalPage">
             <div className='searchBarGlobal'>
-              <input type='text' placeholder='Search for People here'/>
+              <input type='text' placeholder='Search for People here' />
+              <button><img className='searchButton' src={searchIcon} /></button>
+            </div>
+            <div className='searchContainerGlobal'>
+              <div className='searchHints'>
+                <div className="grid-container">
+                  <div className="gridCell00">
+                    00
+                  </div>
+                  <div className="gridCell01">
+                    01
+                  </div>
+                  <div className="gridCell02">
+                    02
+                  </div>
+                  <div className="gridCell10">
+                    10
+                  </div>
+                  <div className="gridCell11">
+                    11
+                  </div>
+                  <div className="gridCell12">
+                    12
+                  </div>
+                </div>
+              </div>
+              <div className='searchResults'>
+
+              </div>
             </div>
           </div>
         </div>
