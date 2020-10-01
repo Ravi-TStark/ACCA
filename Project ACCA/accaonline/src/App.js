@@ -206,6 +206,16 @@ function App() {
     });
   }
 
+  const openMainPage = ()=>{
+    document.getElementsByClassName('globalPage')[0].style.display = 'none';
+    document.getElementsByClassName('mainPage')[0].style.display = 'block';
+  }
+
+  const openGlobalPage = ()=>{
+    document.getElementsByClassName('mainPage')[0].style.display = 'none';
+    document.getElementsByClassName('globalPage')[0].style.display = 'block';
+  }
+
   const datesAreOnSameDay = (first, second) =>
     first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
@@ -220,10 +230,10 @@ function App() {
         <div id="loggedInContainer">
           <div className="App_SideBar">
             <div className="App-Page-List">
-              <button className="sideButtonActive">
+              <button className="sideButtonActive" onClick={openMainPage}>
                 <img src={homeIcon} alt = "Home"/>
               </button>
-              <button className="sideButtonInactive">
+              <button className="sideButtonInactive" onClick={openGlobalPage}>
                 <img src={searchIcon} alt = "Global"/>
               </button>
             </div>
@@ -310,6 +320,11 @@ function App() {
                   }
                 }><img src={sendIcon} /></button>
               </div>
+            </div>
+          </div>
+          <div className="globalPage">
+            <div className='searchBarGlobal'>
+              <input type='text' placeholder='Search for People here'/>
             </div>
           </div>
         </div>

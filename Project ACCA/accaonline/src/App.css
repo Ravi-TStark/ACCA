@@ -529,6 +529,37 @@
   }
 }
 
+.globalPage{
+  display: none;
+  position: relative;
+  width: calc(100vw - 60px);
+  height: 100vh;
+  margin-right: 0;
+  margin-left: 60px;
+  z-index: 250;
+}
+
+.searchBarGlobal input{
+  background-color: rgb(17, 17, 17);
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding: 5px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 40px;
+  min-width: 500px;
+  font-size: small;
+  transition: all 0.3s;
+}
+
+.searchBarGlobal input:not(:placeholder-shown){
+  margin-top: 0;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
 
 .App-Footer{
   height: 6vh;
