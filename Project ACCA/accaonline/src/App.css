@@ -10,6 +10,7 @@
 .App {
   text-align: center;
   background: rgb(39, 39, 39);
+  min-height: 100vh;
 }
 
 .App-Content {
@@ -85,7 +86,7 @@
   color: gray;
   font-style: italic;
   height: 300px;
-  padding-top: 50vh;
+  padding-top: calc(50vh - 30px);
 }
 
 .App-Content-LoggedIn .App_ChatBox_Loading{
@@ -543,10 +544,10 @@
   display: inline-block;
   background-color: rgb(17, 17, 17);
   height: 40px;
-  width: auto;
   padding: 5px;
   border-radius: 5px;
   margin-top: 40px;
+  margin-left: 55px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -556,7 +557,7 @@
   height: 40px;
   border: none;
   outline: none;
-  margin-left: 50px;
+  margin-left: 10px;
   margin-right: 10px;
   font-size: small;
   min-width: calc(100% - 100px);
@@ -566,10 +567,10 @@
 }
 
 .searchBarGlobal input:not(:placeholder-shown){
-  width: calc(100vw - 200px);
+  width: calc(100vw - 320px);
 }
 
-.searchBarGlobal button{
+.searchButtonContainer{
   width: 40px;
   height: 40px;
   border-radius: 5px;
@@ -580,11 +581,49 @@
   transition: all 0.3s;
 }
 
-.searchBarGlobal button img{
+.searchButton{
   position: relative;
   width: 20px;
   height: 20px;
   margin: 10px;
+}
+
+.inputIndicator{
+  width: 40px;
+  height: 100%;
+  border-radius: 5px;
+  float: left;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  vertical-align: middle;
+  transition: all 0.3s;
+}
+
+.inputIndicatorImage{
+  position: relative;
+  width: 14px;
+  height: calc(100% - 26px);
+  margin: 13px;
+}
+
+.inputIndicatorMessage{
+  width: 40px;
+  height: 100%;
+  border-radius: 5px;
+  float: left;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  vertical-align: middle;
+  transition: all 0.3s;
+}
+
+.inputIndicatorImageMessage{
+  position: relative;
+  width: 14px;
+  height: calc(100% - 36px);
+  margin: 18px;
 }
 
 .searchBarGlobal .searchButton{
@@ -592,24 +631,29 @@
 }
 
 .searchContainerGlobal{
+    display: flex;
     height: calc(100vh - 110px);
+    width: calc(100% - 20px);
     padding: 10px;
+    overflow: hidden;
 }
 
 .searchHints{
   display: block;
-  width: 360px;
+  width: calc(100%);
   height: 360px;
-  margin-top: 50% - 180px;
+  text-align: center;
 }
 
 .searchHints .grid-container {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 4px 4px;
-  height: 25vh;
-  width: 25vh;
+  gap: 6px 6px;
+  height: 41vh;
+  width: 62vh;
+  margin: 0;
+  margin-top: calc(20.5vh);
   grid-template-areas:
     "gridCell00 gridCell01 gridCell02"
     "gridCell10 gridCell11 gridCell12";
@@ -622,13 +666,18 @@
 .searchHints .gridCell12 { grid-area: gridCell12; }
 
 .grid-container div{
-  display: block;
-  height: calc(20vh);
-  width: calc(20vh);
-  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  height: auto;
+  width: auto;
+  background-color: rgba(8, 8, 8, 0.8);
   text-align: center;
   border-radius: 10px;
-  font-size: medium;
+  padding: 10px;
+  font-size: small;
+  font-weight: bold;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0px 0px 15px rgb(20, 20, 20);
 }
 
 .App-Footer{

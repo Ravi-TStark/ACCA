@@ -10,6 +10,8 @@ import Message from './message';
 import sendIcon from './img/send-Icon.svg'
 import homeIcon from './img/homeIcon.png'
 import searchIcon from './img/searchIcon.png'
+import inputFieldIndicator from './img/input-field-indicator.svg'
+import closeInputBtn from './img/closeIcon.svg'
 
 function App() {
   const [users, setUsers] = useState([])
@@ -206,14 +208,47 @@ function App() {
     });
   }
 
+  const setSidebarInactive = () => {
+    var lst = document.getElementsByClassName('App-Page-List')[0].getElementsByTagName('button')
+    for (var i = 0; i < lst.length; i++) {
+      lst[i].className = 'sideButtonInactive'
+    }
+  }
+
   const openMainPage = () => {
+    setSidebarInactive()
     document.getElementsByClassName('globalPage')[0].style.display = 'none';
     document.getElementsByClassName('mainPage')[0].style.display = 'block';
+    document.getElementById('sidebarHome').className = 'sideButtonActive'
   }
 
   const openGlobalPage = () => {
+    setSidebarInactive()
     document.getElementsByClassName('mainPage')[0].style.display = 'none';
     document.getElementsByClassName('globalPage')[0].style.display = 'block';
+    document.getElementById('sidebarGlobal').className = 'sideButtonActive'
+  }
+
+  const onSearchBarTextChange = () => {
+    var sBar = document.getElementsByClassName('searchBarGlobal')[0]
+    var inp = sBar.getElementsByTagName('input')[0]
+    if (inp.value.trim() !== '') {
+      sBar.style.marginLeft = '0'
+      document.getElementsByClassName('inputIndicatorImage')[0].src = closeInputBtn
+    }
+    else {
+      sBar.style.marginLeft = '0px'
+      document.getElementsByClassName('inputIndicatorImage')[0].src = inputFieldIndicator
+    }
+    inp.value = inp.value.trim()
+  }
+
+  const emptySearchBarText = () => {
+    var sBar = document.getElementsByClassName('searchBarGlobal')[0]
+    var inp = sBar.getElementsByTagName('input')[0]
+    if(inp.value.trim() !== ''){
+      inp.value = ''
+    }
   }
 
   const datesAreOnSameDay = (first, second) =>
@@ -230,10 +265,10 @@ function App() {
         <div id="loggedInContainer">
           <div className="App_SideBar">
             <div className="App-Page-List">
-              <button className="sideButtonActive" onClick={openMainPage}>
+              <button id='sidebarHome' className="sideButtonActive" onClick={openMainPage}>
                 <img src={homeIcon} alt="Home" />
               </button>
-              <button className="sideButtonInactive" onClick={openGlobalPage}>
+              <button id='sidebarGlobal' className="sideButtonInactive" onClick={openGlobalPage}>
                 <img src={searchIcon} alt="Global" />
               </button>
             </div>
@@ -257,7 +292,9 @@ function App() {
                   <button className="listButtonActive">
                     Chats
                   </button>
-                  <button className="buttonInactive">
+                  <button className="buttonInactive" onClick={(e) => {
+                    alert('Feature to be added soon!')
+                  }}>
                     Groups
                   </button>
                 </div>
@@ -311,6 +348,7 @@ function App() {
                 </div>
               </div>
               <div className="chatBoxInput">
+                <button className='inputIndicatorMessage' onClick={emptySearchBarText}><img className='inputIndicatorImageMessage' src={inputFieldIndicator} /></button>
                 <input id="chatBoxInputText" type="text" placeholder="Type your message" />
                 <button className="chatBoxInputSendBtn" onClick={
                   (e) => {
@@ -323,30 +361,33 @@ function App() {
             </div>
           </div>
           <div className="globalPage">
-            <div className='searchBarGlobal'>
-              <input type='text' placeholder='Search for People here' />
-              <button><img className='searchButton' src={searchIcon} /></button>
+            <div className='searchBarContainer'>
+              <div className='searchBarGlobal'>
+                <button className='inputIndicator' onClick={emptySearchBarText}><img className='inputIndicatorImage' src={inputFieldIndicator} /></button>
+                <input type='text' placeholder='Search for People here' onChange={onSearchBarTextChange} />
+                <button className='searchButtonContainer'><img className='searchButton' src={searchIcon} /></button>
+              </div>
             </div>
             <div className='searchContainerGlobal'>
               <div className='searchHints'>
                 <div className="grid-container">
                   <div className="gridCell00">
-                    00
+                    Search for a Name or Enter a Email Address.
                   </div>
                   <div className="gridCell01">
-                    01
+                    Anyone with a Gmail account can use this App. Simple.
                   </div>
                   <div className="gridCell02">
-                    02
+                    Unfriending will delete your chats and Hurt your feelings. Think before you leap!
                   </div>
                   <div className="gridCell10">
-                    10
+                    We use Google's Firebase to store your messages and info in. So you need not worry about your data!
                   </div>
                   <div className="gridCell11">
-                    11
+                    We are not responsible for any Spamming Accounts. This is an Open Platform.
                   </div>
                   <div className="gridCell12">
-                    12
+                    But still you can unfriend the person and report that profile. We will be there to help you.
                   </div>
                 </div>
               </div>
