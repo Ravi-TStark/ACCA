@@ -10,6 +10,7 @@
     padding: 40px;
     font-size: small;
     margin-top: 5px;
+    margin-bottom: 15px;
     align-items: center;
     vertical-align: middle;
 }
@@ -59,4 +60,24 @@
 
 .addPeerBtn:active{
     background-color: rgba(150,150,150,0.5);
+}
+
+.isPeerBtn{
+    float: right;
+    background-color: rgba(0,0,0,0.5);
+    outline: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: x-large;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.peerImage{
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    object-fit: contain;
 }

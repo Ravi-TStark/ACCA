@@ -122,9 +122,11 @@ function App() {
           } else {
             usersRef.set({
               id: email,
-              DisplayName: userDisplayname,
-              peers: []
+              DisplayName: userDisplayname
             }) // create the document
+            usersRef.collection('peers').set({
+
+            })
           }
         });
     }
@@ -169,12 +171,18 @@ function App() {
   }
 
   const addPeerFromID = function (peerID) {
+    var getUser = users.filter(({id, user}) => {
+      return id === peerID
+    })
+    var name = getUser[0].user.DisplayName
     db.collection('users').doc(email).collection('peers').doc(peerID).set({
       id: peerID,
-      displayName: db.collection('users').doc(peerID).DisplayName,
+      displayName: name
     })
-    db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').set({
 
+    db.collection('users').doc(peerID).collection('peers').doc(email).set({
+      id: email,
+      displayName: userDisplayname
     })
   }
 
@@ -249,11 +257,9 @@ function App() {
     //MainSearch Function
     if (inp.value.trim() !== '') {
       var keyword = inp.value;
-      if(inp.length >= 2){
-        setSearchResults(db.collection('users').filter((item) => {
-          return item.user.displayName.toLowerCase().includes(keyword.toLowerCase()) || item.user.id.toLowerCase().includes(keyword.toLowerCase())
-        }))
-      }
+      setSearchResults(users.filter((item) => {
+        return (item.user.DisplayName.toLowerCase().includes(keyword.toLowerCase()) || item.user.id.toLowerCase().includes(keyword.toLowerCase())) && (item.user.id !== email)
+      }))
     }
     //MainSearch Function Ends
   }
@@ -390,7 +396,7 @@ function App() {
               <div className='searchRes'>
                 {
                   searchResults.map(({id, user})=>{
-                    return <SearchResultItem key={id} id={user.id} onClick={addPeerFromID} displayName={user.DisplayName} isUserPeer={false}/>
+                    return <SearchResultItem key={id} id={user.id} displayName={user.DisplayName} isUserPeer={isPeer(user.id)} addPeer={addPeerFromID} />
                   })
                 }
               </div>

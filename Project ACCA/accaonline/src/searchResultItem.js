@@ -1,5 +1,6 @@
 import React from 'react'
 import './searchResultItem.css'
+import handShake from './img/handshake.svg'
 
 function searchResultItem(props) {
     return (
@@ -12,10 +13,10 @@ function searchResultItem(props) {
                 <i>{props.id}</i>
             </div>
             {
-                !props.isUserPeer ? <button className='addPeerBtn' onClick={props.onClick("ID")}>
+                !props.isUserPeer ? <button className='addPeerBtn' onClick={e => {props.addPeer(props.id)}}>
                     +     
                 </button> : 
-                <div className='addPeerBtn'>✓</div>
+                <div className='isPeerBtn'><img className='peerImage' src={handShake}/></div>
             }
         </div>
     )
