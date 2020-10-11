@@ -1,0 +1,62 @@
+.searchResultContainer{
+    display: flex;
+    position: relative;
+    border-radius: 5px;
+    background-color: rgb(22, 22, 22);
+    display: inline-block;
+    min-height: 3vh;
+    width: calc(100% - 150px);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    padding: 40px;
+    font-size: small;
+    margin-top: 5px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.searchResultContainer .searchUser-ProfileImage{
+    float: left;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+    font-size: medium;
+    background-color: gray;
+    line-height: 50px;
+    font-size: larger;
+    font-weight: normal;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .search-ListInfo{
+    display: block;
+    text-align: left;
+    pointer-events: none;
+    height: 50px;
+    width: calc(100% - 60px - 160px);
+    line-height: 25px;
+    float: left;
+}
+
+.addPeerBtn{
+    float: right;
+    background-color: rgba(0,0,0,0.5);
+    outline: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: x-large;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.addPeerBtn:hover{
+    background-color: rgba(150,150,150,0.15);
+}
+
+.addPeerBtn:active{
+    background-color: rgba(150,150,150,0.5);
+}
