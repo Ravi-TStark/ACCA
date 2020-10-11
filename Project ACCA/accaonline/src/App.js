@@ -12,6 +12,7 @@ import homeIcon from './img/homeIcon.png'
 import searchIcon from './img/searchIcon.png'
 import inputFieldIndicator from './img/input-field-indicator.svg'
 import closeInputBtn from './img/closeIcon.svg'
+import SearchResultItem from './searchResultItem';
 
 function App() {
   const [users, setUsers] = useState([])
@@ -24,6 +25,7 @@ function App() {
   const [email, setemail] = useState("")
   const [loginState, setLoginState] = useState(false)
   const [loadingAuth, setLoadingAuth] = useState(true)
+  const [searchResults, setSearchResults] = useState([])
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
   const signIn = (event) => {
@@ -120,9 +122,11 @@ function App() {
           } else {
             usersRef.set({
               id: email,
-              DisplayName: userDisplayname,
-              peers: []
+              DisplayName: userDisplayname
             }) // create the document
+            usersRef.collection('peers').set({
+
+            })
           }
         });
     }
@@ -166,13 +170,19 @@ function App() {
     return (out ? true : false)
   }
 
-  const addPeer = function (peerID) {
+  const addPeerFromID = function (peerID) {
+    var getUser = users.filter(({id, user}) => {
+      return id === peerID
+    })
+    var name = getUser[0].user.DisplayName
     db.collection('users').doc(email).collection('peers').doc(peerID).set({
       id: peerID,
-      displayName: db.collection('users').doc(peerID).DisplayName,
+      displayName: name
     })
-    db.collection('users').doc(email).collection('peers').doc(peerID).collection('messages').set({
 
+    db.collection('users').doc(peerID).collection('peers').doc(email).set({
+      id: email,
+      displayName: userDisplayname
     })
   }
 
@@ -235,12 +245,23 @@ function App() {
     if (inp.value.trim() !== '') {
       sBar.style.marginLeft = '0'
       document.getElementsByClassName('inputIndicatorImage')[0].src = closeInputBtn
+      document.getElementsByClassName('searchHints')[0].style.display = 'none'
+      document.getElementsByClassName('searchRes')[0].style.display = 'block'
     }
     else {
       sBar.style.marginLeft = '0px'
       document.getElementsByClassName('inputIndicatorImage')[0].src = inputFieldIndicator
+      document.getElementsByClassName('searchHints')[0].style.display = 'block'
+      document.getElementsByClassName('searchRes')[0].style.display = 'none'
     }
-    inp.value = inp.value.trim()
+    //MainSearch Function
+    if (inp.value.trim() !== '') {
+      var keyword = inp.value;
+      setSearchResults(users.filter((item) => {
+        return (item.user.DisplayName.toLowerCase().includes(keyword.toLowerCase()) || item.user.id.toLowerCase().includes(keyword.toLowerCase())) && (item.user.id !== email)
+      }))
+    }
+    //MainSearch Function Ends
   }
 
   const emptySearchBarText = () => {
@@ -248,6 +269,9 @@ function App() {
     var inp = sBar.getElementsByTagName('input')[0]
     if(inp.value.trim() !== ''){
       inp.value = ''
+      document.getElementsByClassName('inputIndicatorImage')[0].src = inputFieldIndicator
+      document.getElementsByClassName('searchHints')[0].style.display = 'block'
+      document.getElementsByClassName('searchRes')[0].style.display = 'none'
     }
   }
 
@@ -369,6 +393,13 @@ function App() {
               </div>
             </div>
             <div className='searchContainerGlobal'>
+              <div className='searchRes'>
+                {
+                  searchResults.map(({id, user})=>{
+                    return <SearchResultItem key={id} id={user.id} displayName={user.DisplayName} isUserPeer={isPeer(user.id)} addPeer={addPeerFromID} />
+                  })
+                }
+              </div>
               <div className='searchHints'>
                 <div className="grid-container">
                   <div className="gridCell00">
